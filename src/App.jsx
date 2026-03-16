@@ -46,15 +46,15 @@ function App() {
       <main id="main-content">
         <section id="hakkimda">
           <h2>Hakkimda</h2>
-          <div className="hakkimda-content" style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+          <div className="hakkimda-content">
             <img
               src={profileImg}
               alt="Profil fotografi"
               width="250"
               height="250"
-              style={{ borderRadius: '50%', objectFit: 'cover', objectPosition: 'top', border: '4px solid #e5e7eb', flexShrink: 0 }}
+              className="profile-img"
             />
-            <p style={{ margin: 0 }}>
+            <p>
                Malatya Turgut Özal Üniversitesi'nde başladığım Yazılım
         Mühendisliği lisans eğitimime, Fırat Üniversitesi'nde 3. sınıf
         öğrencisi olarak yatay geçişle devam etmekteyim. Python
@@ -85,7 +85,9 @@ function App() {
                     {repo.description || "Bu proje için bir açıklama bulunmuyor."}
                   </p>
                   {repo.language && (
-                    <span className="project-lang">{repo.language}</span>
+                    <ul className="skill-tags">
+                      <li>{repo.language}</li>
+                    </ul>
                   )}
                   <div className="project-links">
                     <a href={repo.html_url} target="_blank" rel="noreferrer">

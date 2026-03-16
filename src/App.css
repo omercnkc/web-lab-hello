@@ -1,3 +1,4 @@
+@import './styles/tokens.css';
 /* Genel sifirlama */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: system-ui, sans-serif; line-height: 1.6; }
@@ -38,29 +39,34 @@ input, textarea, select {
 
 /* -- Ozel Istekler -- */
 
-/* Header (Side bar) %95 genislik ve ortalama */
+/* Navigasyon cubugu */
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: var(--space-md);
+  padding: 0;
+  margin: 0;
+}
+
+/* Mobilde dikey yigin */
+@media (max-width: 639px) {
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Header icindeki hizalama: logo sol, nav sag */
 header {
   width: 95%;
   margin: 1rem auto 2rem auto;
   background-color: #f3f4f6;
   border: 1px solid #d1d5db;
-  border-radius: 60px; /* Fotoğraf büyüdüğü için yarıçap biraz daha ovalleştirildi */
-  padding: 0.5rem 2rem; /* Görsel ile başlık çerçevesi arasındaki padding/margin azaltıldı */
+  border-radius: 60px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-}
-
-header nav {
-  flex: 1; /* Nav genişleyerek bağlantıları ortalayacak alanı yaratır */
-  display: flex;
-  justify-content: center;
-  padding-right: 150px; /* Tam merkezi sağlamak için resim+yazı alanı kadar sağdan ittirme */
-}
-
-header ul {
-  display: flex;
-  gap: 2rem; /* Bağlantılar arası boşluk biraz artırıldı */
-  list-style: none;
+  padding: var(--space-md) var(--space-xl);
 }
 
 header a {
@@ -132,53 +138,80 @@ footer a:hover {
   color: #3b82f6;
 }
 
-/* -- Dinamik Projeler Grid & Kart Stili -- */
+/* ===== PROJE GRID ===== */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* Daha geniş ve orantılı kartlar */
-  gap: 2rem;
+  /* Sihirli satir: otomatik responsive grid! */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-xl);
   margin-top: 2rem;
 }
 
+/* ===== PROJE KARTI ===== */
 .project-card {
-  background-color: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
 .project-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Kart icindeki gorsel (Eğer projelerde eklenirse diye hazır) */
+.project-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Kart icerigi */
+.project-card h3,
+.project-card p,
+.project-card .skill-tags,
+.project-links {
+  padding: 0 var(--space-lg);
 }
 
 .project-card h3 {
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
+  margin-top: var(--space-md);
+  font-size: var(--text-lg);
   color: #111827;
 }
 
-.project-desc {
+.project-card p.project-desc {
+  color: var(--color-muted);
+  flex-grow: 1; /* icerik farkli uzunlukta olsa bile kartlarin alt kenari hizali */
+  margin-top: 0.5rem;
   font-size: 0.95rem;
-  color: #4b5563;
-  margin-bottom: 1rem;
-  flex-grow: 1; /* Metin kisa olsa da butonu asagi iter */
 }
 
-.project-lang {
-  display: inline-block;
+/* LAB-3 skill-tags stili */
+.project-card .skill-tags {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  padding-bottom: var(--space-lg);
+  margin-top: auto;
+  flex-wrap: wrap;
+}
+
+.project-card .skill-tags li {
   background-color: #e5e7eb;
   color: #374151;
   font-size: 0.75rem;
   padding: 0.2rem 0.6rem;
   border-radius: 20px;
-  align-self: flex-start;
-  margin-bottom: 1rem;
   font-weight: 500;
+}
+
+.project-links {
+  padding-bottom: var(--space-lg);
 }
 
 .project-links a {
@@ -192,4 +225,46 @@ footer a:hover {
 
 .project-links a:hover {
   text-decoration: underline;
+}
+
+/* --- Hakkimda Ozel ve Responsive --- */
+.hakkimda-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.profile-img {
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+  border: 4px solid #e5e7eb;
+  flex-shrink: 0;
+}
+
+.hakkimda-content p {
+  margin: 0;
+}
+
+/* Tablet ve Mobil Uyumluluk (Responsive) */
+@media (max-width: 768px) {
+  /* Header kismi mobilde dikey */
+  header {
+    flex-direction: column;
+    padding: var(--space-md);
+    border-radius: 20px;
+    gap: 1.5rem;
+    width: 95%;
+  }
+
+  /* Main padding'ini azalt */
+  main {
+    padding: 0 1.5rem;
+  }
+
+  /* Hakkimda kismindaki resim ve metin dikey olsun */
+  .hakkimda-content {
+    flex-direction: column;
+    text-align: center;
+  }
 }
